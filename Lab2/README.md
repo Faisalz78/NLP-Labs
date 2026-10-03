@@ -1,81 +1,141 @@
-# Lab 2: Text Pre-processing and Regular Expressions
+<div align="center">
 
-## Student Information
+# 🧠 Lab 2: Text Pre-processing & Regular Expressions
 
-- **Name:** Faisal AL Zahrani
-- **Student ID:** 2230000363
+### Natural Language Processing (NLP)
 
-## Overview
+**👨‍🎓 Student:** Faisal AL Zahrani  
+**🆔 Student ID:** 2230000363
 
-This lab introduces essential techniques for **text pre-processing** and **regular expressions (Regex)** in Natural Language Processing (NLP).
+---
 
-The lab demonstrates how raw text can be searched, cleaned, normalized, and tokenized before being used in NLP or machine learning applications. It also provides practical experience with Python's `re` module, NLTK, spaCy, and pandas.
+*Exploring essential text pre-processing techniques and Regular Expressions using Python, NLTK, spaCy, and pandas.*
 
-## Learning Objectives
+</div>
 
-By completing this lab, the following concepts are practiced:
+## 📌 Overview
 
-- Using Regular Expressions for pattern matching and text manipulation
-- Searching and extracting patterns from text
-- Tokenizing text into sentences and words
-- Converting text to lowercase
-- Applying stemming techniques
-- Applying lemmatization
-- Working with stop words
-- Comparing tokenization using spaCy and NLTK
-- Analyzing hashtags from a real Twitter dataset
+This lab introduces fundamental techniques used to prepare, clean, search, and analyze text data in **Natural Language Processing (NLP)**.
 
-## Topics Covered
+The lab combines two important areas:
 
-### 1. Regular Expressions
+- 🔎 **Regular Expressions (Regex)** for pattern matching, searching, extraction, replacement, and splitting.
+- 🧹 **Text Pre-processing** for preparing raw text before using it in NLP or machine learning models.
 
-Python's built-in `re` module is used to work with regular expressions.
+The practical tasks also include analyzing hashtags from a real **Apple Twitter dataset**.
 
-Important functions covered in the lab include:
+---
 
-- `re.search()` — finds the first occurrence of a pattern anywhere in a string
-- `re.match()` — checks for a pattern only at the beginning of a string
-- `re.findall()` — returns all matches
-- `re.sub()` — replaces matched patterns
-- `re.compile()` — creates a reusable regular expression pattern
-- `re.split()` — splits text based on a regular expression pattern
+## 🎯 Learning Objectives
 
-Examples of useful Regex patterns:
+By completing this lab, we practice how to:
+
+- 🔍 Search text using Regular Expressions
+- 🧩 Extract specific patterns from text
+- ✂️ Split text using Regex patterns
+- 🔄 Replace matched text
+- 📝 Tokenize sentences and words
+- 🔡 Convert text to lowercase
+- 🌱 Apply stemming
+- 📖 Apply lemmatization
+- 🧹 Work with stop words
+- ⚖️ Compare spaCy and NLTK tokenization
+- #️⃣ Analyze hashtags from real Twitter data
+
+---
+
+## 🧰 Technologies & Libraries
+
+| Tool / Library | Purpose |
+|---|---|
+| 🐍 **Python** | Main programming language |
+| 📓 **Jupyter Notebook** | Interactive development environment |
+| 🐼 **pandas** | Dataset loading and analysis |
+| 🔎 **re** | Regular Expressions |
+| 📚 **NLTK** | Text processing and tokenization |
+| ⚡ **spaCy** | Modern NLP processing |
+| 🌐 **en_core_web_sm** | spaCy English language model |
+| 🔢 **Counter** | Frequency counting |
+
+---
+
+## 🔎 Part 1 — Regular Expressions
+
+Regular Expressions are used to identify and manipulate patterns inside text.
+
+### Important Regex Functions
+
+| Function | Description |
+|---|---|
+| `re.search()` | Finds the first match anywhere in the text |
+| `re.match()` | Checks for a match at the beginning of the text |
+| `re.findall()` | Returns all matching patterns |
+| `re.sub()` | Replaces matched text |
+| `re.compile()` | Creates a reusable Regex pattern |
+| `re.split()` | Splits text using a Regex pattern |
+
+### 🧪 Example Patterns
 
 ```python
-r"\d+"      # One or more digits
-r"#\w+"     # Hashtags
+r"\d+"       # One or more digits
+r"#\w+"      # Hashtags
 r"[a-zA-Z]+" # Alphabetic words
 ```
 
-### 2. Text Pre-processing
+---
 
-The lab covers common NLP pre-processing steps:
+## 🧹 Part 2 — Text Pre-processing
 
-#### Tokenization
+Text pre-processing transforms raw text into a cleaner and more consistent format before further NLP analysis.
 
-Breaking text into smaller units such as sentences or words.
+### 🧩 Tokenization
 
-Examples:
+Tokenization breaks text into smaller units such as sentences or words.
 
 ```python
 nltk.sent_tokenize(text)
 nltk.word_tokenize(text)
 ```
 
-#### Lowercasing
+Example:
 
-Converting text into lowercase to reduce unnecessary differences between words such as `Book`, `BOOK`, and `book`.
+```text
+"I'm enjoying NLP!"
+```
+
+becomes:
+
+```python
+["I", "'m", "enjoying", "NLP", "!"]
+```
+
+---
+
+### 🔡 Lowercasing
+
+Lowercasing converts all letters into lowercase.
 
 ```python
 text.lower()
 ```
 
-#### Stemming
+Example:
 
-Reducing words to a simplified stem form.
+```text
+NLP → nlp
+Book → book
+BOOK → book
+```
 
-The lab demonstrates:
+This helps reduce unnecessary differences between words.
+
+---
+
+### 🌱 Stemming
+
+Stemming reduces words to a simplified stem, usually by removing suffixes.
+
+The lab uses:
 
 - `PorterStemmer`
 - `SnowballStemmer`
@@ -83,19 +143,25 @@ The lab demonstrates:
 Example:
 
 ```text
-running -> run
-runs    -> run
+running → run
+runs    → run
+easily  → easili
 ```
 
-#### Lemmatization
+> ⚠️ A stem does not always have to be a valid English word.
 
-Reducing a word to its meaningful base form using linguistic information.
+---
+
+### 📖 Lemmatization
+
+Lemmatization reduces a word to its meaningful base form using linguistic information.
 
 Example:
 
 ```text
-taking -> take
-am     -> be
+taking   → take
+enjoying → enjoy
+am       → be
 ```
 
 The lab uses:
@@ -104,54 +170,63 @@ The lab uses:
 WordNetLemmatizer
 ```
 
-#### Stop Words
-
-Stop words are common words that may carry little useful information in some NLP tasks.
-
-Examples include:
-
-```text
-the, a, an, is, and, in
-```
-
-The lab demonstrates stop-word handling using both **spaCy** and **NLTK**.
+A key difference from stemming is that lemmatization can use **Part of Speech (POS)** information.
 
 ---
 
-## Lab Tasks
+### 🧹 Stop Words
 
-### Task 1 — Hashtag Extraction and Analysis
+Stop words are common words that may provide little useful information for some NLP tasks.
 
-The Apple Twitter Sentiment dataset is analyzed using Regex.
+Examples:
 
-The task includes:
+```text
+the, a, an, is, and, in, to
+```
 
-- Loading the dataset with pandas
-- Extracting hashtags using:
+The lab demonstrates stop-word handling using both:
+
+- 📚 NLTK
+- ⚡ spaCy
+
+> 💡 Stop words should **not always be removed**.  
+> For example, removing the word `not` from sentiment analysis can completely change the meaning of a sentence.
+
+---
+
+# 🧪 Lab Tasks
+
+## #️⃣ Task 1 — Hashtag Extraction & Analysis
+
+The Apple Twitter dataset is analyzed using Regex.
+
+### Objectives
+
+- Load the dataset using pandas
+- Extract hashtags from tweets
+- Count all hashtag occurrences
+- Count unique hashtags
+- Display the **Top 10 most frequently used hashtags**
+
+The Regex pattern used is:
 
 ```python
 r"#\w+"
 ```
 
-- Counting the total number of hashtags
-- Counting unique hashtags
-- Finding the top 10 most frequently used hashtags
+### 📊 Dataset Summary
 
-### Task 1 Results
+- 📝 **Tweets:** 1,630
+- #️⃣ **Total hashtag occurrences:** 1,616
+- 🔢 **Unique hashtags:** 555
 
-The dataset used in this lab contains:
-
-- **1,630 tweets**
-- **1,616 total hashtag occurrences**
-- **555 unique hashtags**
-
-Top hashtags obtained from the analysis:
+### 🏆 Top 10 Hashtags
 
 | Rank | Hashtag | Frequency |
 |---:|---|---:|
-| 1 | `#aapl` | 400 |
-| 2 | `#apple` | 162 |
-| 3 | `#iphone` | 38 |
+| 🥇 1 | `#aapl` | 400 |
+| 🥈 2 | `#apple` | 162 |
+| 🥉 3 | `#iphone` | 38 |
 | 4 | `#december` | 37 |
 | 5 | `#iphone6` | 29 |
 | 6 | `#stocks` | 15 |
@@ -160,31 +235,39 @@ Top hashtags obtained from the analysis:
 | 9 | `#iphone6s` | 13 |
 | 10 | `#tech` | 12 |
 
-### Task 2 — Using `re.compile()`
+---
 
-A compiled regular expression is created to match one or more digits:
+## 🔁 Task 2 — Using `re.compile()`
 
-```python
-pattern = re.compile(r"\d+")
-```
-
-The pattern is then used to replace:
+The following text is processed:
 
 ```text
 This year is 2021
 ```
 
-with:
+A reusable Regex pattern is created:
+
+```python
+pattern = re.compile(r"\d+")
+```
+
+The year is then replaced:
 
 ```text
+This year is 2021
+        ↓
 This year is 2022
 ```
 
-`re.compile()` is useful when the same Regex pattern needs to be reused multiple times.
+### 💡 Why use `re.compile()`?
 
-### Task 3 — Using `re.split()`
+`re.compile()` creates a reusable Regex pattern object, which makes the code cleaner and more convenient when the same pattern is used multiple times.
 
-The following text is processed:
+---
+
+## ✂️ Task 3 — Using `re.split()`
+
+The following text is used:
 
 ```text
 a 11 b 2 3 c 4
@@ -196,9 +279,21 @@ The pattern:
 r"\d+"
 ```
 
-is used to split the string wherever one or more digits appear.
+matches one or more digits.
 
-### Task 4 — Tokenization Using spaCy and NLTK
+The text is split whenever a number appears:
+
+```python
+['a ', ' b ', ' ', ' c ', '']
+```
+
+### 💡 What does `re.split()` do?
+
+`re.split()` divides a string wherever the specified Regular Expression pattern is found.
+
+---
+
+## 🧩 Task 4 — Tokenization with spaCy & NLTK
 
 The sentence:
 
@@ -206,37 +301,44 @@ The sentence:
 I'm enjoying the NLP course!
 ```
 
-is tokenized using both:
+is tokenized using both **spaCy** and **NLTK**.
 
-- spaCy
-- NLTK
-
-For this sentence, both tokenizers produce:
+### ⚡ spaCy Output
 
 ```python
 ['I', "'m", 'enjoying', 'the', 'NLP', 'course', '!']
 ```
 
-The task demonstrates that different NLP libraries may use different tokenization rules, even though their output is identical for this example.
+### 📚 NLTK Output
+
+```python
+['I', "'m", 'enjoying', 'the', 'NLP', 'course', '!']
+```
+
+### 🔍 Comparison
+
+For this sentence, both libraries produce the same tokens.
+
+However, spaCy and NLTK use different tokenization rules, so they may produce different results for more complex text.
+
+### 🧠 What does `spacy.load()` do?
+
+```python
+spacy.load("en_core_web_sm")
+```
+
+loads spaCy's small English language model, which provides features such as:
+
+- 🧩 Tokenization
+- 🏷️ Part-of-Speech tagging
+- 📖 Lemmatization
+- 🧑‍💼 Named Entity Recognition
 
 ---
 
-## Technologies and Libraries
+## ⚙️ Installation
 
-The lab uses:
-
-- Python
-- Jupyter Notebook
-- pandas
-- Regular Expressions (`re`)
-- NLTK
-- spaCy
-- `en_core_web_sm`
-- `collections.Counter`
-
-## Installation
-
-Install the required Python libraries:
+Install the required libraries:
 
 ```bash
 pip install pandas nltk spacy
@@ -248,7 +350,7 @@ Install the spaCy English model:
 python -m spacy download en_core_web_sm
 ```
 
-Required NLTK resources can be downloaded inside Python:
+Download the required NLTK resources:
 
 ```python
 import nltk
@@ -257,25 +359,53 @@ nltk.download("punkt")
 nltk.download("punkt_tab")
 ```
 
-## Project Structure
+---
+
+## 📁 Project Structure
 
 ```text
 Lab2/
-├── Lab2.ipynb
-├── apple-twitter-sentiment-texts.csv
-└── README.md
+│
+├── 📓 Lab2.ipynb
+├── 📊 apple-twitter-sentiment-texts.csv
+└── 📄 README.md
 ```
 
-## Running the Lab
+---
 
-1. Place the dataset in the same directory as `Lab2.ipynb`.
-2. Open the notebook using Jupyter Notebook, JupyterLab, or VS Code.
-3. Run the cells from top to bottom.
-4. Verify that the required libraries and NLP resources are installed.
-5. Review the output generated for each task.
+## ▶️ How to Run
 
-## Conclusion
+1. 📂 Place the dataset in the same folder as `Lab2.ipynb`.
+2. 📓 Open the notebook using Jupyter Notebook, JupyterLab, or VS Code.
+3. 📦 Install the required libraries.
+4. ▶️ Run the notebook cells from top to bottom.
+5. ✅ Review the output for each task.
 
-This lab provides practical experience with fundamental NLP pre-processing techniques and regular expressions.
+---
 
-The exercises demonstrate how Python can be used to clean, normalize, tokenize, search, extract, and analyze text data. These techniques form an important foundation for more advanced NLP tasks such as sentiment analysis, text classification, information extraction, and language modeling.
+## ✅ Conclusion
+
+This lab provides practical experience with some of the most important foundations of **Natural Language Processing**.
+
+Through the exercises, we practiced:
+
+- 🔎 Pattern matching with Regex
+- 🧹 Text cleaning and normalization
+- 🧩 Tokenization
+- 🌱 Stemming
+- 📖 Lemmatization
+- 🗑️ Stop-word handling
+- #️⃣ Hashtag extraction and frequency analysis
+- ⚖️ Comparing NLP libraries
+
+These techniques are essential building blocks for more advanced NLP applications such as **sentiment analysis, text classification, information extraction, and language modeling**.
+
+---
+
+<div align="center">
+
+### 🚀 Lab 2 Completed
+
+**Faisal AL Zahrani — 2230000363**
+
+</div>
