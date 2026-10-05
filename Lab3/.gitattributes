@@ -1,0 +1,5 @@
+# Keep the dataset bytes unchanged so the notebook's SHA-256 check survives Git checkouts.
+data/*.csv -text
+data/*.zip binary
+*.ipynb text eol=lf
+*.md text eol=lf
